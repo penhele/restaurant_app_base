@@ -30,20 +30,15 @@ class _MainScreenState extends State<MainScreen> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-            tooltip: "Home"
-          ),
+              icon: Icon(Icons.home), label: 'Home', tooltip: "Home"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'Favorites',
-            tooltip: 'Favorites'
-          ),
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+              tooltip: 'Favorites'),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            tooltip: 'Settings'
-          ),
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+              tooltip: 'Settings'),
         ],
       ),
     );
