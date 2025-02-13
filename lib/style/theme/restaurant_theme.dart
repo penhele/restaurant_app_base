@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_base/style/colors/restaurant_colors.dart';
 import 'package:restaurant_app_base/style/typography/restaurant_text_styles.dart';
 
-// todo-04: create a TourismTheme
-class TourismTheme {
-  // todo-07: add theme for light and dark theme
+class RestaurantTheme {
   static ThemeData get lightTheme {
     return ThemeData(
       colorSchemeSeed: TourismColors.blue.color,
@@ -25,28 +23,26 @@ class TourismTheme {
     );
   }
 
-  // todo-05: add static value for textTheme and others
   static TextTheme get _textTheme {
     return TextTheme(
-      displayLarge: TourismTextStyles.displayLarge,
-      displayMedium: TourismTextStyles.displayMedium,
-      displaySmall: TourismTextStyles.displaySmall,
-      headlineLarge: TourismTextStyles.headlineLarge,
-      headlineMedium: TourismTextStyles.headlineMedium,
-      headlineSmall: TourismTextStyles.headlineSmall,
-      titleLarge: TourismTextStyles.titleLarge,
-      titleMedium: TourismTextStyles.titleMedium,
-      titleSmall: TourismTextStyles.titleSmall,
-      bodyLarge: TourismTextStyles.bodyLargeBold,
-      bodyMedium: TourismTextStyles.bodyLargeMedium,
-      bodySmall: TourismTextStyles.bodyLargeRegular,
-      labelLarge: TourismTextStyles.labelLarge,
-      labelMedium: TourismTextStyles.labelMedium,
-      labelSmall: TourismTextStyles.labelSmall,
+      displayLarge: RestaurantTextStyles.displayLarge,
+      displayMedium: RestaurantTextStyles.displayMedium,
+      displaySmall: RestaurantTextStyles.displaySmall,
+      headlineLarge: RestaurantTextStyles.headlineLarge,
+      headlineMedium: RestaurantTextStyles.headlineMedium,
+      headlineSmall: RestaurantTextStyles.headlineSmall,
+      titleLarge: RestaurantTextStyles.titleLarge,
+      titleMedium: RestaurantTextStyles.titleMedium,
+      titleSmall: RestaurantTextStyles.titleSmall,
+      bodyLarge: RestaurantTextStyles.bodyLargeBold,
+      bodyMedium: RestaurantTextStyles.bodyLargeMedium,
+      bodySmall: RestaurantTextStyles.bodyLargeRegular,
+      labelLarge: RestaurantTextStyles.labelLarge,
+      labelMedium: RestaurantTextStyles.labelMedium,
+      labelSmall: RestaurantTextStyles.labelSmall,
     );
   }
 
-  // todo-06: add static value for app bar theme and others
   static AppBarTheme get _appBarTheme {
     return AppBarTheme(
       toolbarTextStyle: _textTheme.titleLarge,
