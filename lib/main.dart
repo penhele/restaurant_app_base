@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app_base/data/api/api_service.dart';
 import 'package:restaurant_app_base/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app_base/provider/home/restaurant_list_provider.dart';
+import 'package:restaurant_app_base/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/shared_preferences_provider.dart';
 import 'package:restaurant_app_base/screen/detail/detail_screen.dart';
@@ -20,6 +21,11 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        // navigasi
+        ChangeNotifierProvider(
+          create: (context) => IndexNavProvider(),
+        ),
+
         Provider(
           create: (context) => ApiServices(),
         ),
