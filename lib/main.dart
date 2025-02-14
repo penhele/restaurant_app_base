@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_base/data/api/api_service.dart';
+import 'package:restaurant_app_base/provider/detail/favorite_list_provider.dart';
 import 'package:restaurant_app_base/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app_base/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app_base/provider/main/index_nav_provider.dart';
@@ -24,6 +25,10 @@ void main() async {
         // navigasi
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
+        ),
+
+        ChangeNotifierProvider(
+          create: (context) => FavoriteListProvider(),
         ),
 
         Provider(
