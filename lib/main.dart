@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_base/data/api/api_service.dart';
-import 'package:restaurant_app_base/provider/detail/favorite_list_provider.dart';
 import 'package:restaurant_app_base/provider/detail/restaurant_detail_provider.dart';
+import 'package:restaurant_app_base/provider/favorite/local_database_provider.dart';
 import 'package:restaurant_app_base/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app_base/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
@@ -11,6 +11,7 @@ import 'package:restaurant_app_base/screen/detail/detail_screen.dart';
 import 'package:restaurant_app_base/screen/main/main_screen.dart';
 import 'package:restaurant_app_base/screen/setting/setting_screen.dart';
 import 'package:restaurant_app_base/services/shared_preferences_service.dart';
+import 'package:restaurant_app_base/services/sqlite_service.dart';
 import 'package:restaurant_app_base/static/navigation_route.dart';
 import 'package:restaurant_app_base/style/theme/restaurant_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,11 +27,6 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
         ),
-
-        ChangeNotifierProvider(
-          create: (context) => FavoriteListProvider(),
-        ),
-
         Provider(
           create: (context) => ApiServices(),
         ),
@@ -51,6 +47,15 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => SharedPreferencesProvider(
               context.read<SharedPreferencesService>()),
+        ),
+
+        // sqlite
+        Provider(
+          create: (context) => SqliteService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              LocalDatabaseProvider(context.read<SqliteService>()),
         ),
       ],
       child: const MyApp(),
