@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app_base/provider/setting/local_notification_provider.dart';
 import 'package:restaurant_app_base/provider/setting/notification_state_provider.dart';
 import 'package:restaurant_app_base/screen/setting/title_form_widget.dart';
 import 'package:restaurant_app_base/utils/notification_state.dart';
@@ -15,24 +16,47 @@ class NotificationField extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const TitleForm(
-            'Notification:',
+            'Daily Reminder:',
           ),
           const SizedBox.square(dimension: 4),
           Consumer<NotificationStateProvider>(
             builder: (_, provider, __) {
               final isNotificationEnabled =
                   provider.notificationState == NotificationState.enable;
+              final localNotificationProvider =
+                  context.read<LocalNotificationProvider>();
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Enable Dark Theme'),
+                  const Text('Enable Reminder'),
                   Switch(
                     value: isNotificationEnabled,
-                    onChanged: (value) {
+                    onChanged: (value) async {
+                      final isPermissionGranted =
+                          await localNotificationProvider
+                              .checkNotificationPermission();
+
+                      if (!isPermissionGranted && value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                                'Please enable notification permissions in settings.'),
+                          ),
+                        );
+                        return;
+                      }
+
                       provider.notificationState = value
                           ? NotificationState.enable
                           : NotificationState.disable;
+
+                      if (value) {
+                        localNotificationProvider
+                            .scheduleDailyElevenAMNotification();
+                      } else {
+                        localNotificationProvider.clearAllNotifications();
+                      }
                     },
                   ),
                 ],

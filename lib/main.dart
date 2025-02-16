@@ -6,11 +6,13 @@ import 'package:restaurant_app_base/provider/favorite/local_database_provider.da
 import 'package:restaurant_app_base/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app_base/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
+import 'package:restaurant_app_base/provider/setting/local_notification_provider.dart';
 import 'package:restaurant_app_base/provider/setting/notification_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/shared_preferences_provider.dart';
 import 'package:restaurant_app_base/screen/detail/detail_screen.dart';
 import 'package:restaurant_app_base/screen/main/main_screen.dart';
 import 'package:restaurant_app_base/screen/setting/setting_screen.dart';
+import 'package:restaurant_app_base/services/local_notification_service.dart';
 import 'package:restaurant_app_base/services/shared_preferences_service.dart';
 import 'package:restaurant_app_base/services/sqlite_service.dart';
 import 'package:restaurant_app_base/static/navigation_route.dart';
@@ -28,6 +30,7 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) => IndexNavProvider(),
         ),
+
         Provider(
           create: (context) => ApiServices(),
         ),
@@ -62,6 +65,18 @@ void main() async {
         ChangeNotifierProvider(
           create: (context) =>
               LocalDatabaseProvider(context.read<SqliteService>()),
+        ),
+
+        // notifikasi
+        Provider(
+          create: (context) => LocalNotificationService()
+            ..init()
+            ..configureLocalTimeZone(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LocalNotificationProvider(
+            context.read<LocalNotificationService>(),
+          )..requestPermissions(),
         ),
       ],
       child: const MyApp(),
