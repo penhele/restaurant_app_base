@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app_base/utils/dark_theme_state.dart';
 
 class DarkThemeStateProvider extends ChangeNotifier {
-  DarkThemeState _darkThemeState = DarkThemeState.system;
+  DarkThemeState _darkThemeState = DarkThemeState.enable;
 
   DarkThemeState get darkThemeState => _darkThemeState;
 

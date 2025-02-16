@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_base/data/model/setting.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
+import 'package:restaurant_app_base/provider/setting/notification_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/shared_preferences_provider.dart';
 import 'package:restaurant_app_base/screen/setting/dark_theme_field_widget.dart';
+import 'package:restaurant_app_base/screen/setting/notification_field_widget.dart';
 import 'package:restaurant_app_base/screen/setting/save_button_widget.dart';
 import 'package:restaurant_app_base/utils/dark_theme_state.dart';
+import 'package:restaurant_app_base/utils/notification_state.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -20,6 +23,7 @@ class _SettingScreenState extends State<SettingScreen> {
     super.initState();
 
     final darkThemeStateProvider = context.read<DarkThemeStateProvider>();
+    final notificationStateProvider = context.read<NotificationStateProvider>();
     final sharedPreferencesProvider = context.read<SharedPreferencesProvider>();
 
     Future.microtask(() async {
@@ -30,6 +34,9 @@ class _SettingScreenState extends State<SettingScreen> {
         darkThemeStateProvider.darkThemeState = setting.darkThemeEnable
             ? DarkThemeState.enable
             : DarkThemeState.disable;
+        notificationStateProvider.notificationState = setting.notificationEnable
+            ? NotificationState.enable
+            : NotificationState.disable;
       }
     });
   }
@@ -37,9 +44,14 @@ class _SettingScreenState extends State<SettingScreen> {
   void saveAction() async {
     final darkThemeState =
         context.read<DarkThemeStateProvider>().darkThemeState;
+    final notificationState =
+        context.read<NotificationStateProvider>().notificationState;
     final isDarkThemeEnable = darkThemeState.isEnable;
+    final isNotificationEnable = notificationState.isEnable;
 
-    final Setting setting = Setting(darkThemeEnable: isDarkThemeEnable);
+    final Setting setting = Setting(
+        darkThemeEnable: isDarkThemeEnable,
+        notificationEnable: isNotificationEnable);
 
     final scaffoldMessenger = ScaffoldMessenger.of(context);
     final sharedPreferencesProvider = context.read<SharedPreferencesProvider>();
@@ -64,6 +76,7 @@ class _SettingScreenState extends State<SettingScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const DarkThemeField(),
+                const NotificationField(),
                 SaveButton(
                   onPressed: () => saveAction(),
                 ),

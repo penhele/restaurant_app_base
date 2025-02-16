@@ -6,6 +6,7 @@ import 'package:restaurant_app_base/provider/favorite/local_database_provider.da
 import 'package:restaurant_app_base/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app_base/provider/main/index_nav_provider.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
+import 'package:restaurant_app_base/provider/setting/notification_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/shared_preferences_provider.dart';
 import 'package:restaurant_app_base/screen/detail/detail_screen.dart';
 import 'package:restaurant_app_base/screen/main/main_screen.dart';
@@ -38,9 +39,14 @@ void main() async {
           create: (context) =>
               RestaurantDetailProvider(context.read<ApiServices>()),
         ),
+
         ChangeNotifierProvider(
           create: (context) => DarkThemeStateProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => NotificationStateProvider(),
+        ),
+
         Provider(
           create: (context) => SharedPreferencesService(prefs),
         ),

@@ -1,7 +1,6 @@
 enum DarkThemeState {
   enable,
-  disable,
-  system;
+  disable;
 
   bool get isEnable => this == DarkThemeState.enable;
 }
