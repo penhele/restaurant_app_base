@@ -5,9 +5,14 @@ import 'package:restaurant_app_base/provider/setting/notification_state_provider
 import 'package:restaurant_app_base/screen/setting/title_form_widget.dart';
 import 'package:restaurant_app_base/utils/notification_state.dart';
 
-class NotificationField extends StatelessWidget {
+class NotificationField extends StatefulWidget {
   const NotificationField({super.key});
 
+  @override
+  State<NotificationField> createState() => _NotificationFieldState();
+}
+
+class _NotificationFieldState extends State<NotificationField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,6 +43,8 @@ class NotificationField extends StatelessWidget {
                               .checkNotificationPermission();
 
                       if (!isPermissionGranted && value) {
+                        await _requestPermission();
+
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text(
@@ -66,5 +73,9 @@ class NotificationField extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _requestPermission() async {
+    context.read<LocalNotificationProvider>().requestPermissions();
   }
 }

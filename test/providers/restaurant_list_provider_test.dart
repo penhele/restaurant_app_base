@@ -19,7 +19,8 @@ void main() {
 
   group('Testing RestaurantListProvider', () {
     test('Default state should be RestaurantListNoneState', () {
-      expect(restaurantListProvider.resultState, isA<RestaurantListNoneState>());
+      expect(
+          restaurantListProvider.resultState, isA<RestaurantListNoneState>());
     });
 
     test('Should successfully fetch restaurant list from API', () async {
@@ -53,20 +54,25 @@ void main() {
 
       await restaurantListProvider.fetchRestaurantList();
 
-      expect(restaurantListProvider.resultState, isA<RestaurantListLoadedState>());
-      final loadedState = restaurantListProvider.resultState as RestaurantListLoadedState;
+      expect(
+          restaurantListProvider.resultState, isA<RestaurantListLoadedState>());
+      final loadedState =
+          restaurantListProvider.resultState as RestaurantListLoadedState;
 
       expect(loadedState.data.length, 2);
       expect(loadedState.data[0].name, "Kafein");
     });
 
     test('Should return error state when API request fails', () async {
-      when(() => apiServices.getRestaurantList()).thenThrow(Exception("Failed to retrieve data"));
+      when(() => apiServices.getRestaurantList())
+          .thenThrow(Exception("Failed to retrieve data"));
 
       await restaurantListProvider.fetchRestaurantList();
 
-      expect(restaurantListProvider.resultState, isA<RestaurantListErrorState>());
-      final errorState = restaurantListProvider.resultState as RestaurantListErrorState;
+      expect(
+          restaurantListProvider.resultState, isA<RestaurantListErrorState>());
+      final errorState =
+          restaurantListProvider.resultState as RestaurantListErrorState;
 
       expect(errorState.error, contains("Failed to retrieve data"));
     });

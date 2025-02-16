@@ -17,8 +17,8 @@ class FavoriteCard extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 8,
-          horizontal: 16,
+          vertical: 12,
+          horizontal: 24,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,12 +31,15 @@ class FavoriteCard extends StatelessWidget {
                 minWidth: 120,
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(
-                  "https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}",
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Hero(
+                    tag:
+                        'https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}',
+                    child: Image.network(
+                      'https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}',
+                      fit: BoxFit.cover,
+                    ),
+                  )),
             ),
             const SizedBox.square(dimension: 8),
             Expanded(
@@ -52,7 +55,11 @@ class FavoriteCard extends StatelessWidget {
                   const SizedBox.square(dimension: 6),
                   Row(
                     children: [
-                      const Icon(Icons.pin_drop),
+                      const Icon(
+                        Icons.location_pin,
+                        color: Colors.brown,
+                        size: 16,
+                      ),
                       const SizedBox.square(dimension: 4),
                       Expanded(
                         child: Text(
@@ -68,8 +75,9 @@ class FavoriteCard extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(
-                        Icons.favorite,
-                        color: Colors.pink,
+                        Icons.star,
+                        color: Colors.amber,
+                        size: 16,
                       ),
                       const SizedBox.square(dimension: 4),
                       Expanded(

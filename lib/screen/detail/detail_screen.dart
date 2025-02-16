@@ -34,6 +34,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Restaurant Detail"),
+        centerTitle: true,
         actions: [
           ChangeNotifierProvider(
             create: (context) => FavoriteIconProvider(),

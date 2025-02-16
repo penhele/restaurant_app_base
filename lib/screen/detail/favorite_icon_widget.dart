@@ -54,6 +54,7 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
         context.watch<FavoriteIconProvider>().isFavorited
             ? Icons.favorite
             : Icons.favorite_outline,
+        color: Colors.red,
       ),
     );
   }

@@ -81,6 +81,8 @@ class _SettingScreenState extends State<SettingScreen> {
                 SaveButton(
                   onPressed: () => saveAction(),
                 ),
+
+                // untuk mengetahui permission dan notifikasi aktif atau tidak
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [

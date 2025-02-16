@@ -26,6 +26,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Favorite List"),
+          centerTitle: true,
         ),
         body: Consumer<LocalDatabaseProvider>(
           builder: (context, value, child) {
