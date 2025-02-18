@@ -29,8 +29,8 @@ class _NotificationFieldState extends State<NotificationField> {
           const SizedBox.square(dimension: 4),
           Consumer<NotificationStateProvider>(
             builder: (_, provider, __) {
-              final isNotificationEnabled =
-                  provider.notificationState == NotificationState.enable;
+              final isNotificationDisabled =
+                  provider.notificationState == NotificationState.disable;
               final localNotificationProvider =
                   context.read<LocalNotificationProvider>();
 
@@ -39,7 +39,7 @@ class _NotificationFieldState extends State<NotificationField> {
                 children: [
                   const Text('Enable Reminder'),
                   Switch(
-                    value: isNotificationEnabled,
+                    value: isNotificationDisabled,
                     onChanged: (value) async {
                       final isPermissionGranted =
                           await localNotificationProvider
@@ -57,11 +57,11 @@ class _NotificationFieldState extends State<NotificationField> {
                         return;
                       }
 
-                      provider.notificationState = value
+                      provider.notificationState = !value
                           ? NotificationState.enable
                           : NotificationState.disable;
 
-                      if (value) {
+                      if (!value) {
                         localNotificationProvider
                             .scheduleDailyElevenAMNotification();
                       } else {

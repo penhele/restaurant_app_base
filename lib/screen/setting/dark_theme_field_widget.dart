@@ -23,17 +23,17 @@ class DarkThemeField extends StatelessWidget {
           const SizedBox.square(dimension: 4),
           Consumer<DarkThemeStateProvider>(
             builder: (_, provider, __) {
-              final isDarkModeEnabled =
-                  provider.darkThemeState == DarkThemeState.enable;
+              final isDarkModeDisabled =
+                  provider.darkThemeState == DarkThemeState.disable;
 
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Enable Dark Theme'),
                   Switch(
-                    value: isDarkModeEnabled,
+                    value: isDarkModeDisabled,
                     onChanged: (value) {
-                      provider.darkThemeState = value
+                      provider.darkThemeState = !value
                           ? DarkThemeState.enable
                           : DarkThemeState.disable;
                       saveAction(context);

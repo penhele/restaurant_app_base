@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
           theme: RestaurantTheme.lightTheme,
           darkTheme: RestaurantTheme.darkTheme,
           themeMode:
-              value.darkThemeState.isEnable ? ThemeMode.dark : ThemeMode.light,
+              value.darkThemeState.isEnable ? ThemeMode.light : ThemeMode.dark,
           initialRoute: NavigationRoute.mainRoute.name,
           routes: {
             NavigationRoute.mainRoute.name: (context) => const MainScreen(),

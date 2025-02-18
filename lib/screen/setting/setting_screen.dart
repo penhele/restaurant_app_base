@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
-import 'package:restaurant_app_base/provider/setting/local_notification_provider.dart';
 import 'package:restaurant_app_base/provider/setting/notification_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/shared_preferences_provider.dart';
 import 'package:restaurant_app_base/screen/setting/dark_theme_field_widget.dart';
@@ -55,108 +54,9 @@ class _SettingScreenState extends State<SettingScreen> {
               children: [
                 const DarkThemeField(),
                 const NotificationField(),
-
-                // untuk mengetahui permission dan notifikasi aktif atau tidak
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     ElevatedButton(
-                //       onPressed: () async {
-                //         await _requestPermission();
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //         minimumSize: const Size(175, 50),
-                //       ),
-                //       child: Consumer<LocalNotificationProvider>(
-                //         builder: (context, value, child) {
-                //           return Text(
-                //             "Permission : (${value.permission})",
-                //             textAlign: TextAlign.center,
-                //             style: Theme.of(context).textTheme.bodyLarge,
-                //           );
-                //         },
-                //       ),
-                //     ),
-                //     ElevatedButton(
-                //       onPressed: () async {
-                //         await _checkPendingNotificationRequests();
-                //       },
-                //       style: ElevatedButton.styleFrom(
-                //         minimumSize: const Size(175, 50),
-                //       ),
-                //       child: Text(
-                //         "Check pending",
-                //         style: Theme.of(context).textTheme.bodyLarge,
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
         ));
-  }
-
-  Future<void> _requestPermission() async {
-    context.read<LocalNotificationProvider>().requestPermissions();
-  }
-
-  Future<void> _checkPendingNotificationRequests() async {
-    final localNotificationProvider = context.read<LocalNotificationProvider>();
-    await localNotificationProvider.checkPendingNotificationRequests(context);
-
-    if (!mounted) {
-      return;
-    }
-
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        final pendingData = context.select(
-            (LocalNotificationProvider provider) =>
-                provider.pendingNotificationRequests);
-        return AlertDialog(
-          title: Text(
-            pendingData.isEmpty
-                ? 'There is no reminder'
-                : 'Pending notification requests',
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          content: SizedBox(
-            height: 200,
-            width: 300,
-            child: ListView.builder(
-              itemCount: pendingData.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final item = pendingData[index];
-                return ListTile(
-                  title: Text(
-                    item.title ?? "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                    item.body ?? "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  contentPadding: EdgeInsets.zero,
-                );
-              },
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
   }
 }
