@@ -36,6 +36,9 @@ class FavoriteCard extends StatelessWidget {
                     tag:
                         'https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}',
                     child: Image.network(
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(Icons.error_outline);
+                      },
                       'https://restaurant-api.dicoding.dev/images/large/${restaurant.pictureId}',
                       fit: BoxFit.cover,
                     ),

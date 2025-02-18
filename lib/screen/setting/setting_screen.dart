@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app_base/data/model/setting.dart';
 import 'package:restaurant_app_base/provider/setting/dark_theme_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/local_notification_provider.dart';
 import 'package:restaurant_app_base/provider/setting/notification_state_provider.dart';
 import 'package:restaurant_app_base/provider/setting/shared_preferences_provider.dart';
 import 'package:restaurant_app_base/screen/setting/dark_theme_field_widget.dart';
 import 'package:restaurant_app_base/screen/setting/notification_field_widget.dart';
-import 'package:restaurant_app_base/screen/setting/save_button_widget.dart';
 import 'package:restaurant_app_base/utils/dark_theme_state.dart';
 import 'package:restaurant_app_base/utils/notification_state.dart';
 
@@ -42,27 +40,6 @@ class _SettingScreenState extends State<SettingScreen> {
     });
   }
 
-  void saveAction() async {
-    final darkThemeState =
-        context.read<DarkThemeStateProvider>().darkThemeState;
-    final notificationState =
-        context.read<NotificationStateProvider>().notificationState;
-    final isDarkThemeEnable = darkThemeState.isEnable;
-    final isNotificationEnable = notificationState.isEnable;
-
-    final Setting setting = Setting(
-        darkThemeEnable: isDarkThemeEnable,
-        notificationEnable: isNotificationEnable);
-
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
-    final sharedPreferencesProvider = context.read<SharedPreferencesProvider>();
-    await sharedPreferencesProvider.saveSettingValue(setting);
-
-    scaffoldMessenger.showSnackBar(SnackBar(
-      content: Text(sharedPreferencesProvider.message),
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,45 +55,42 @@ class _SettingScreenState extends State<SettingScreen> {
               children: [
                 const DarkThemeField(),
                 const NotificationField(),
-                SaveButton(
-                  onPressed: () => saveAction(),
-                ),
 
                 // untuk mengetahui permission dan notifikasi aktif atau tidak
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        await _requestPermission();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(175, 50),
-                      ),
-                      child: Consumer<LocalNotificationProvider>(
-                        builder: (context, value, child) {
-                          return Text(
-                            "Permission : (${value.permission})",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          );
-                        },
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await _checkPendingNotificationRequests();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(175, 50),
-                      ),
-                      child: Text(
-                        "Check pending",
-                        style: Theme.of(context).textTheme.bodyLarge,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     ElevatedButton(
+                //       onPressed: () async {
+                //         await _requestPermission();
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //         minimumSize: const Size(175, 50),
+                //       ),
+                //       child: Consumer<LocalNotificationProvider>(
+                //         builder: (context, value, child) {
+                //           return Text(
+                //             "Permission : (${value.permission})",
+                //             textAlign: TextAlign.center,
+                //             style: Theme.of(context).textTheme.bodyLarge,
+                //           );
+                //         },
+                //       ),
+                //     ),
+                //     ElevatedButton(
+                //       onPressed: () async {
+                //         await _checkPendingNotificationRequests();
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //         minimumSize: const Size(175, 50),
+                //       ),
+                //       child: Text(
+                //         "Check pending",
+                //         style: Theme.of(context).textTheme.bodyLarge,
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),
